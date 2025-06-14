@@ -5,7 +5,7 @@
   "main": "dist/server.js",
   "scripts": {
     "dev": "nodemon --watch src --ext ts --exec ts-node src/server.ts",
-    "build": "tsc",
+    "build": "node_modules/.bin/tsc",
     "start": "node dist/server.js",
     "knex:migrate:make": "knex migrate:make -x ts --knexfile knexfile.ts",
     "knex:migrate:latest": "knex migrate:latest --knexfile knexfile.ts",
