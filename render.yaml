@@ -1,0 +1,3 @@
+build:
+  preInstall:
+    - npm install -g typescript
