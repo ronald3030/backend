@@ -1,7 +1,6 @@
-// src/config/database.ts
+// --- src/config/database.ts ---
 import knexConstructor, { Knex } from 'knex';
 import path from 'path';
-import appRoot from 'app-root-path';
 import {
   DB_CLIENT,
   DB_HOST,
@@ -9,32 +8,36 @@ import {
   DB_USER,
   DB_PASSWORD,
   DB_NAME
-} from './env'; // Importa desde env.ts
+} from './env';
+
+const connectionConfig = process.env.DATABASE_URL
+  ? {
+      connectionString: process.env.DATABASE_URL,
+      ssl: { rejectUnauthorized: false }
+    }
+  : {
+      host: DB_HOST,
+      port: DB_PORT,
+      user: DB_USER,
+      password: DB_PASSWORD,
+      database: DB_NAME
+    };
 
 const knexConfig: Knex.Config = {
-  client: DB_CLIENT,
-  connection: {
-    host:     DB_HOST,
-    port:     DB_PORT, // Ya es un número gracias a env.ts
-    user:     DB_USER,
-    password: DB_PASSWORD,
-    database: DB_NAME
-  },
+  client: DB_CLIENT || 'pg',
+  connection: connectionConfig,
   pool: { min: 2, max: 10 },
   migrations: {
     tableName: 'knex_migrations',
-    directory: path.resolve(appRoot.path, 'src/db/migrations')
+    directory: path.resolve(__dirname, '..', 'db/migrations')
   },
   seeds: {
-    directory: path.resolve(appRoot.path, 'src/db/seeds')
+    directory: path.resolve(__dirname, '..', 'db/seeds')
   }
 };
 
 const db: Knex = knexConstructor(knexConfig);
-
-// La prueba de conexión se hace en server.ts antes de iniciar,
-// por lo que la eliminamos de aquí para evitar redundancia.
-
 export default db;
+
 
 
