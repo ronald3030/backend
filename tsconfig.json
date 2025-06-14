@@ -1,0 +1,27 @@
+{
+    "compilerOptions": {
+      /* Opciones Base del Compilador */
+      "target": "ES2020",                       // Especifica la versión de ECMAScript de destino.
+      "module": "commonjs",                     // Especifica el sistema de módulos a usar (CommonJS es estándar para Node.js).
+      "outDir": "./dist",                       // Directorio donde se guardarán los archivos JavaScript compilados.
+      "rootDir": "./src",                       // Directorio raíz de los archivos TypeScript de entrada.
+      
+      /* Chequeo Estricto de Tipos */
+      "strict": true,                           // Habilita todas las opciones de chequeo de tipo estricto para un código más seguro.
+      
+      /* Interoperabilidad de Módulos */
+      "esModuleInterop": true,                  // ¡Esta es la línea clave! Permite importar módulos antiguos como Express de la forma moderna (import express from 'express').
+      "forceConsistentCasingInFileNames": true, // Asegura que los nombres de archivo se usen de forma consistente.
+  
+      /* Opciones Avanzadas */
+      "skipLibCheck": true,                     // Acelera la compilación al no verificar los tipos de las librerías de terceros (node_modules).
+      "resolveJsonModule": true                 // Permite importar archivos .json directamente en el código.
+    },
+    "include": [
+      "src/**/*"                                // Le dice a TypeScript que compile todos los archivos que están dentro de la carpeta 'src'.
+    ],
+    "exclude": [
+      "node_modules",                           // Excluye la carpeta de dependencias.
+      "dist"                                    // Excluye la carpeta de salida para evitar bucles de compilación.
+    ]
+  }
